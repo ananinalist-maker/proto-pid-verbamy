@@ -783,7 +783,8 @@ body{background:#F3F5F7}
 
 .hz{position:absolute;inset:0;overflow:hidden;background:#C9D6E2}
 .hz__l,.hz__l img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 50%}
-.hz__l{animation:hzZoom 24s ease-in-out infinite alternate;transform-origin:50% 60%}
+.hz{--cam:1}
+.hz__l{transform:scale(var(--cam));transform-origin:50% 78%;will-change:transform}
 .hz__fg{z-index:2;pointer-events:none}
 .hero .hz__t{position:absolute;z-index:1;left:0;right:0;top:21%;transform:none;margin:0;padding:0 2vw;text-align:center;white-space:nowrap;text-indent:0;
   font:700 clamp(64px,11.6vw,200px)/.84 var(--f-head);letter-spacing:.005em;text-transform:uppercase;color:#fff;
@@ -800,7 +801,7 @@ body{background:#F3F5F7}
   .hz__t .hz__w{display:block}
   .hero__scrim{background:linear-gradient(0deg,rgba(10,15,22,.55) 0%,rgba(10,15,22,0) 30%),linear-gradient(180deg,rgba(10,15,22,.35) 0%,rgba(10,15,22,0) 14%)!important}
 }
-@media (prefers-reduced-motion:reduce){.hz__l,.hero .hz__t{animation:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.hero .hz__t{animation:none;opacity:1}}
 
 
 .qb{background:#fff;box-shadow:0 18px 50px rgba(10,15,22,.10)}
@@ -839,6 +840,9 @@ body{background:#F3F5F7}
 .rdlg__body h3{font:700 clamp(30px,4.6vw,56px)/.95 var(--f-head);letter-spacing:.01em}
 @media (min-width:900px){.hzr__ph{aspect-ratio:16/11}}
 @media (max-width:480px){.hzr__btn{font-size:12px;letter-spacing:.03em;padding:0 10px}}
+@media (max-width:760px){.hz__l{transform-origin:50% 58%}}
+.hz__vid{object-fit:cover;opacity:0;transition:opacity .9s ease}
+.hero.is-playing .hz__vid{opacity:1}
 </style>
 </head>
 <body>
@@ -949,13 +953,14 @@ body{background:#F3F5F7}
   <div class="hero" id="hero" aria-labelledby="hero-title">
     <div class="hz" id="heroMedia">
       <picture class="hz__l hz__bg">
-        <source media="(max-width: 760px)" srcset="img/hz-bg-m.webp" width="828" height="1104">
-        <img src="img/hz-bg-d.webp" width="1600" height="900" alt="Місток через ставок до альтанки з флюгером, над нею верби і небо" fetchpriority="high" decoding="async">
+        <source media="(max-width: 760px)" srcset="img/hz-bg-m.webp" width="720" height="1280">
+        <img src="img/hz-bg-d.webp" width="1280" height="720" alt="Місток через ставок до альтанки з флюгером, над нею верби і небо" fetchpriority="high" decoding="async">
       </picture>
+      <video id="heroVideo" class="hz__l hz__vid" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
       <h1 class="hz__t" id="hero-title"><span class="hz__move" id="hzMove" aria-hidden="true"><span class="hz__w">Під</span> <span class="hz__w">Вербами</span></span><span class="sr">Садиба «Під Вербами» у&nbsp;Вижниці: ставок, сауна, чан і&nbsp;котедж</span></h1>
       <picture class="hz__l hz__fg" aria-hidden="true">
-        <source media="(max-width: 760px)" srcset="img/hz-fg-m.webp" width="828" height="1104">
-        <img src="img/hz-fg-d.webp" width="1600" height="900" alt="" fetchpriority="high" decoding="async">
+        <source media="(max-width: 760px)" srcset="img/hz-fg-m.webp" width="720" height="1280">
+        <img src="img/hz-fg-d.webp" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
       </picture>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
@@ -1653,7 +1658,7 @@ body{background:#F3F5F7}
     var userPaused = false, cur = '';
     v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
     v.playsInline = true; v.setAttribute('playsinline', ''); v.loop = true; v.setAttribute('loop', '');
-    function pick(){ return mob.matches ? 'video/hero_720x960.mp4' : 'video/hero_1280x720.mp4'; }
+    function pick(){ return mob.matches ? 'video/hero_720x1280.mp4' : 'video/hero_1280x720.mp4'; }
     function load(){ var s = pick(); if (s !== cur) { cur = s; v.src = s; v.load(); } }
     function play(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
     v.addEventListener('canplay', function(){ if (!v.ended && !userPaused) play(); });
@@ -2478,19 +2483,14 @@ body{background:#F3F5F7}
 <script>
 (function(){
   var calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var h = document.getElementById('hero'), t = document.getElementById('hzMove');
-  if (h && t && !calm) {
-    var px = 0, py = 0, sy = 0, raf = 0;
-    function draw(){ raf = 0; t.style.transform = 'translate(' + px.toFixed(1) + 'px,' + (py + sy).toFixed(1) + 'px)'; }
-    function ask(){ if (!raf) raf = requestAnimationFrame(draw); }
-    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
-      h.addEventListener('pointermove', function(e){
-        var r = h.getBoundingClientRect();
-        px = -((e.clientX - r.left) / r.width - .5) * 26; py = -((e.clientY - r.top) / r.height - .5) * 14; ask();
-      });
-      h.addEventListener('pointerleave', function(){ px = py = 0; ask(); });
-    }
-    window.addEventListener('scroll', function(){ var y = window.scrollY; if (y < innerHeight * 1.2) { sy = y * .45; ask(); } }, { passive: true });
+  var hz = document.getElementById('heroMedia');
+  if (hz && !calm) {
+    var t0 = 0, sc = 0, intro = 0, raf = 0;
+    function cam(){ raf = 0; hz.style.setProperty('--cam', (1 + intro * .09 + sc * .75).toFixed(4)); }
+    function ask(){ if (!raf) raf = requestAnimationFrame(cam); }
+    function step(ts){ if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 7000); intro = 1 - Math.pow(1 - k, 3); ask(); if (k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+    window.addEventListener('scroll', function(){ var y = window.scrollY, H = innerHeight; if (y < H * 1.3) { sc = Math.max(0, Math.min(1, y / H)); ask(); } }, { passive: true });
   }
   var say = document.getElementById('sayT');
   if (say) {
