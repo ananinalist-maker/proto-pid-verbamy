@@ -781,30 +781,35 @@ body{background:#F3F5F7}
 .rcard--terms li{align-items:flex-start}
 
 
-.hz{position:absolute;inset:0;overflow:hidden;background:#C9D6E2}
-.hz__l,.hz__l img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 50%}
-.hz{--cam:1}
-.hz__l{transform:scale(var(--cam));transform-origin:50% 78%;will-change:transform}
+.top{background:#F3F5F7!important}
+.hero{background:#DCE5EE;color:#fff}
+.hero .follow,.hero__ctl{display:none!important}
+.hz{position:absolute;inset:0;overflow:hidden;background:#DCE5EE}
+.hz__stage{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:50% 42%;animation:hzIn 1.8s cubic-bezier(.22,1,.36,1) both}
+.hz__l{position:absolute;inset:0}
+.hz__l img{display:block;width:100%;height:100%;max-width:none;object-fit:cover}
 .hz__fg{z-index:2;pointer-events:none}
-.hero .hz__t{position:absolute;z-index:1;left:0;right:0;top:21%;transform:none;margin:0;padding:0 2vw;text-align:center;white-space:nowrap;text-indent:0;
-  font:700 clamp(64px,11.6vw,200px)/.84 var(--f-head);letter-spacing:.005em;text-transform:uppercase;color:#fff;
-  text-shadow:0 4px 40px rgba(10,15,22,.18);opacity:0;animation:hzRise 1.9s .35s cubic-bezier(.22,1,.36,1) forwards}
-.hz__t .hz__w{display:inline-block}
-.hz__move{display:block;will-change:transform}
-@keyframes hzRise{from{opacity:0;transform:translateY(34%)}to{opacity:1;transform:none}}
-@keyframes hzZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
-.hero__scrim{background:linear-gradient(0deg,rgba(10,15,22,.42) 0%,rgba(10,15,22,0) 26%),linear-gradient(180deg,rgba(10,15,22,.32) 0%,rgba(10,15,22,0) 16%)!important}
-.hero__scrim{z-index:3}
-.hero .follow,.hero__ctl,.qc{z-index:4}
-@media (max-width:760px){
-  .hero .hz__t{top:15%;white-space:normal;font-size:21.5vw;line-height:.86}
-  .hz__t .hz__w{display:block}
-  .hero__scrim{background:linear-gradient(0deg,rgba(10,15,22,.55) 0%,rgba(10,15,22,0) 30%),linear-gradient(180deg,rgba(10,15,22,.35) 0%,rgba(10,15,22,0) 14%)!important}
+.hero .hz__t{position:absolute;z-index:1;left:0;right:0;top:20%;transform:none;margin:0;padding:0;text-align:center;white-space:nowrap;text-indent:0;
+  font:700 120px/.84 var(--f-head);letter-spacing:0;text-transform:uppercase;color:#fff;text-shadow:0 2px 30px rgba(10,15,22,.16);
+  animation:hzRise 1.3s .85s cubic-bezier(.22,1,.36,1) both}
+.hz__move,.hz__t .hz__w{display:inline}
+.hz__tag{position:absolute;z-index:1;margin:0;font:400 14px/1.3 var(--f-body);letter-spacing:.02em;color:#fff;text-shadow:0 1px 12px rgba(10,15,22,.4);animation:hzFade .9s 1.6s ease both}
+@keyframes hzIn{from{opacity:0;transform:scale(1.07)}to{opacity:1;transform:none}}
+@keyframes hzRise{from{opacity:0;transform:translateY(28%)}to{opacity:1;transform:none}}
+@keyframes hzFade{from{opacity:0}to{opacity:1}}
+@keyframes hzUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero__scrim{z-index:3;background:linear-gradient(180deg,rgba(10,15,22,.34) 0%,rgba(10,15,22,0) 15%)!important}
+.qc{z-index:4}
+@media (max-width:760px){ .hz__t .hz__w{display:block} .hz__tag{font-size:13px} }
+@media (min-width:900px){
+  :root{--qbh:88px}
+  .hero{inset:0 0 var(--qbh) 0!important}
+  .qbwrap{margin-top:calc(-1 * var(--qbh))!important;padding:0!important}
+  .qb{max-width:none!important;height:var(--qbh);border-radius:0 0 14px 14px!important;background:#fff!important;box-shadow:0 26px 50px -34px rgba(10,15,22,.3)!important;animation:hzUp .9s .5s cubic-bezier(.22,1,.36,1) both}
+  .qb__note{color:#5A6572!important;text-shadow:none!important;padding:0 4px}
+  .qb__note b{color:var(--navy)!important}
 }
-@media (prefers-reduced-motion:reduce){.hero .hz__t{animation:none;opacity:1}}
-
-
-.qb{background:#fff;box-shadow:0 18px 50px rgba(10,15,22,.10)}
+@media (prefers-reduced-motion:reduce){.hz__stage,.hero .hz__t,.hz__tag,.qb{animation:none!important}}
 
 
 .say{position:relative;padding:clamp(110px,16vw,220px) var(--m);text-align:center;background:#F3F5F7}
@@ -840,9 +845,6 @@ body{background:#F3F5F7}
 .rdlg__body h3{font:700 clamp(30px,4.6vw,56px)/.95 var(--f-head);letter-spacing:.01em}
 @media (min-width:900px){.hzr__ph{aspect-ratio:16/11}}
 @media (max-width:480px){.hzr__btn{font-size:12px;letter-spacing:.03em;padding:0 10px}}
-@media (max-width:760px){.hz__l{transform-origin:50% 58%}}
-.hz__vid{object-fit:cover;opacity:0;transition:opacity .9s ease}
-.hero.is-playing .hz__vid{opacity:1}
 </style>
 </head>
 <body>
@@ -952,26 +954,20 @@ body{background:#F3F5F7}
 <section class="top" id="top">
   <div class="hero" id="hero" aria-labelledby="hero-title">
     <div class="hz" id="heroMedia">
-      <picture class="hz__l hz__bg">
-        <source media="(max-width: 760px)" srcset="img/hz-bg-m.webp" width="720" height="1280">
-        <img src="img/hz-bg-d.webp" width="1280" height="720" alt="Місток через ставок до альтанки з флюгером, над нею верби і небо" fetchpriority="high" decoding="async">
-      </picture>
-      <video id="heroVideo" class="hz__l hz__vid" muted playsinline preload="auto" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
-      <h1 class="hz__t" id="hero-title"><span class="hz__move" id="hzMove" aria-hidden="true"><span class="hz__w">Під</span> <span class="hz__w">Вербами</span></span><span class="sr">Садиба «Під Вербами» у&nbsp;Вижниці: ставок, сауна, чан і&nbsp;котедж</span></h1>
-      <picture class="hz__l hz__fg" aria-hidden="true">
-        <source media="(max-width: 760px)" srcset="img/hz-fg-m.webp" width="720" height="1280">
-        <img src="img/hz-fg-d.webp" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
-      </picture>
+      <div class="hz__stage" id="hzStage">
+        <picture class="hz__l hz__bg">
+          <source media="(max-width: 760px)" srcset="img/hz-bg-m.webp" width="720" height="1280">
+          <img src="img/hz-bg-d.webp" width="1600" height="900" alt="Місток через ставок до альтанки з флюгером, над нею верби і небо" fetchpriority="high" decoding="async">
+        </picture>
+        <p class="hz__tag" id="hzTag">Садиба біля ставка у&nbsp;Вижниці</p>
+        <h1 class="hz__t" id="hero-title"><span class="hz__move" aria-hidden="true"><span class="hz__w">Під</span> <span class="hz__w">Вербами</span></span><span class="sr">Садиба «Під Вербами» у&nbsp;Вижниці: ставок, сауна, чан і&nbsp;котедж</span></h1>
+        <picture class="hz__l hz__fg" aria-hidden="true">
+          <source media="(max-width: 760px)" srcset="img/hz-fg-m.webp" width="720" height="1280">
+          <img src="img/hz-fg-d.webp" width="1600" height="900" alt="" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
-    <div class="follow" aria-label="Зв'язок">
-      <span>Зв’язок</span>
-      <a href="tel:+380978878039" aria-label="Подзвонити: +380 97 887 8039"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></a>
-      <a href="viber://chat?number=%2B380978878039" aria-label="Написати у Viber"><svg class="i" aria-hidden="true"><use href="#i-viber"/></svg></a>
-    </div>
-    <div class="hero__ctl">
-      <button class="hero__pause" id="heroPause" type="button" aria-pressed="false" aria-label="Зупинити відео" hidden><svg class="i i--fill i-pause" viewBox="0 0 14 14" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i i--fill i-play" viewBox="0 0 14 14" aria-hidden="true"><use href="#i-play"/></svg></button>
-    </div>
     <a class="qc" id="qc" href="#qb"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg><span class="qc__t" id="qcT">Вільні дати · 2 дорослих · Обрати</span><span class="qc__go" aria-hidden="true"><svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
@@ -1649,31 +1645,7 @@ body{background:#F3F5F7}
   }
 
   
-  (function heroVideo(){
-    var h = d.getElementById('hero'), v = d.getElementById('heroVideo'), btn = d.getElementById('heroPause');
-    var calm = reduce.matches || !!(navigator.connection && navigator.connection.saveData);
-    if (!v) return;
-    if (calm) { v.parentNode.removeChild(v); btn.hidden = true; return; }
-    var mob = window.matchMedia('(max-width: 760px)');
-    var userPaused = false, cur = '';
-    v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
-    v.playsInline = true; v.setAttribute('playsinline', ''); v.loop = true; v.setAttribute('loop', '');
-    function pick(){ return mob.matches ? 'video/hero_720x1280.mp4' : 'video/hero_1280x720.mp4'; }
-    function load(){ var s = pick(); if (s !== cur) { cur = s; v.src = s; v.load(); } }
-    function play(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); }
-    v.addEventListener('canplay', function(){ if (!v.ended && !userPaused) play(); });
-    v.addEventListener('playing', function(){ h.classList.add('is-playing'); btn.hidden = false; });
-    btn.addEventListener('click', function(){
-      var paused = btn.getAttribute('aria-pressed') === 'true';
-      if (paused) { userPaused = false; play(); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Зупинити відео'); }
-      else { userPaused = true; v.pause(); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Відтворити відео'); }
-    });
-    ['touchstart', 'pointerdown', 'scroll'].forEach(function(ev){
-      window.addEventListener(ev, function(){ if (v.paused && !v.ended && !userPaused) play(); }, { once: true, passive: true });
-    });
-    on(mob, function(){ if (!v.ended) { h.classList.remove('is-playing'); load(); } });
-    load();
-  })();
+  
 
 
   
@@ -2483,15 +2455,34 @@ body{background:#F3F5F7}
 <script>
 (function(){
   var calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var hz = document.getElementById('heroMedia');
-  if (hz && !calm) {
-    var t0 = 0, sc = 0, intro = 0, raf = 0;
-    function cam(){ raf = 0; hz.style.setProperty('--cam', (1 + intro * .09 + sc * .75).toFixed(4)); }
-    function ask(){ if (!raf) raf = requestAnimationFrame(cam); }
-    function step(ts){ if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / 7000); intro = 1 - Math.pow(1 - k, 3); ask(); if (k < 1) requestAnimationFrame(step); }
-    requestAnimationFrame(step);
-    window.addEventListener('scroll', function(){ var y = window.scrollY, H = innerHeight; if (y < H * 1.3) { sc = Math.max(0, Math.min(1, y / H)); ask(); } }, { passive: true });
+  var GEO = {"d": {"w": 1600, "h": 900, "peakX": 0.5, "peakY": 0.3548, "vaneTop": 0.1892}, "m": {"w": 720, "h": 1280, "peakX": 0.5, "peakY": 0.3459, "vaneTop": 0.2921}};
+  var hz = document.getElementById('heroMedia'), st = document.getElementById('hzStage'),
+      tt = document.getElementById('hero-title'), tag = document.getElementById('hzTag');
+  function fit(){
+    if (!hz || !st || !tt) return;
+    var mob = window.matchMedia('(max-width: 760px)').matches, g = mob ? GEO.m : GEO.d;
+    var W = hz.clientWidth, H = hz.clientHeight, k = Math.max(W / g.w, H / g.h), sw = g.w * k, sh = g.h * k;
+    st.style.width = sw + 'px'; st.style.height = sh + 'px';
+    st.style.left = (W - sw) / 2 + 'px'; st.style.top = (H - sh) * (mob ? .35 : .5) + 'px';
+    var c = document.createElement('canvas').getContext('2d'), fam = getComputedStyle(tt).fontFamily;
+    c.font = '700 100px ' + fam;
+    var words = [].map.call(tt.querySelectorAll('.hz__w'), function(w){ return w.textContent.toUpperCase(); });
+    var lines = mob ? words : [words.join(' ')];
+    var wmax = Math.max.apply(null, lines.map(function(l){ return c.measureText(l).width; }));
+    var fs = 100 * W * (mob ? .9 : .88) / wmax;
+    var m = c.measureText('ПІДВЕРБАМИ'), cap = m.actualBoundingBoxAscent / 100 * fs;
+    var fA = (m.fontBoundingBoxAscent || 92) / 100 * fs, fD = (m.fontBoundingBoxDescent || 24) / 100 * fs, lh = .84 * fs;
+    var base1 = (lh - (fA + fD)) / 2 + fA, baseN = (lines.length - 1) * lh + base1;
+    var top = g.peakY * sh + cap * .32 - baseN;
+    tt.style.fontSize = fs + 'px'; tt.style.top = top + 'px';
+    var tw = wmax / 100 * fs;
+    if (tag) { tag.style.top = (top + base1 - cap - tag.offsetHeight - fs * .1) + 'px';
+      if (mob) { tag.style.left = '0'; tag.style.right = '0'; tag.style.textAlign = 'center'; }
+      else { tag.style.left = 'auto'; tag.style.right = (sw - tw) / 2 + 'px'; tag.style.textAlign = 'right'; } }
   }
+  fit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('resize', fit);
   var say = document.getElementById('sayT');
   if (say) {
     var words = say.textContent.trim().split(/ +/);
