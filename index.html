@@ -1465,7 +1465,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     <div class="rdlg__body">
       <h3>Номер у&nbsp;будинку садиби</h3>
       <div class="rdlg__price"><div><b>Ціну назвуть господарі</b><small>залежить від дат і&nbsp;кількості гостей</small></div><button class="btn btn--cream" type="button" data-book="nomer">Забронювати</button></div>
-      <p>Затишний номер у&nbsp;дерев’яному будинку: стіни з&nbsp;вагонки, широке ліжко, крісло, стіл і&nbsp;телевізор. Гостя пише: «Затишні номери, без ізисків, але зручні».</p>
+      <p>Затишний номер у&nbsp;дерев’яному будинку: стіни з&nbsp;вагонки, широке ліжко, крісло, стіл і&nbsp;телевізор. Гості пишуть про затишні й&nbsp;зручні номери.</p>
       <h4>Що&nbsp;видно на&nbsp;фото</h4>
       <ul><li>двоспальне ліжко</li><li>крісло і&nbsp;стіл</li><li>телевізор</li><li>дерев’яні стіни</li></ul>
       <p style="font-size:12.5px;color:#CBD0B3">Фото з&nbsp;Google-картки садиби. Скільки номерів і&nbsp;на&nbsp;скільки гостей кожен, уточнимо в&nbsp;господарів.</p>
@@ -1907,7 +1907,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     function busyHint(v, t){
       return v === 'any'
         ? 'На ' + dayName(t) + ' немає вільних номерів' + forWhom() + '. Оберіть іншу дату або напишіть у Viber, господарі підкажуть найближчі вільні.'
-        : 'На ' + dayName(t) + ' ' + ROOMS[v].lc + ' ' + ROOMS[v].busyw + '. Оберіть іншу дату, «Будь-який вільний номер» або напишіть у Viber.';
+        : 'На ' + dayName(t) + ' ' + ROOMS[v].lc + ' ' + ROOMS[v].busyw + '. Оберіть іншу дату, «Будь-що вільне» або напишіть у Viber.';
     }
     function capHint(v){
       if (v === 'any' || !ROOMS[v] || guests() <= ROOMS[v].cap) return '';
@@ -2148,7 +2148,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
       if (selB ? freeRooms(v, selA, selB).length : canIn(v, selA)) return;
       hint = v === 'any'
         ? 'Ці дати вже зайняті' + forWhom() + ', тому вибір скинуто.'
-        : ROOMS[v].name + (selB ? ' на ці дати ' : ' на цю дату ') + ROOMS[v].busyw + ', тому вибір скинуто. Оберіть інші дати або «Будь-який вільний номер».';
+        : ROOMS[v].name + (selB ? ' на ці дати ' : ' на цю дату ') + ROOMS[v].busyw + ', тому вибір скинуто. Оберіть інші дати або «Будь-що вільне».';
       selA = selB = null;
       syncHidden();
     }
@@ -2348,7 +2348,7 @@ textarea.inp{height:auto;min-height:92px;padding:13px 14px;line-height:1.45;resi
     function showDone(){
       var v = roomVal(), has = !!(selA && selB), n = has ? Math.round((selB - selA) / 864e5) : 0;
       var roomLine = v === 'any'
-        ? 'Що бронюють: будь-який вільний номер' + (need() > 1 ? ', потрібно кілька номерів' : '') + (has ? ' (на ці дати вільні: ' + freeRooms(v, selA, selB).map(function(k){ return ROOMS[k].lc; }).join(', ') + ')' : '')
+        ? 'Що бронюють: будь-що вільне' + (need() > 1 ? ', потрібно кілька номерів' : '') + (has ? ' (на ці дати вільні: ' + freeRooms(v, selA, selB).map(function(k){ return ROOMS[k].lc; }).join(', ') + ')' : '')
         : 'Що бронюють: ' + ROOMS[v].full;
       var lines = ['Нова заявка з сайту садиби «Під Вербами»'];
       if (has) {
